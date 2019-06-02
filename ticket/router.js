@@ -1,14 +1,14 @@
-import Ticket from './Ticket';
 import Router from 'koa-router';
+import Ticket from './Ticket';
 import { createObjectDate } from './scripts';
 
 const router = new Router();
 const ticket = new Ticket([{
-    id: 0,
-    name: 'post',
-    description: 'description',
-    status: false,
-    created: createObjectDate(new Date)
+  id: 0,
+  name: 'post',
+  description: 'description',
+  status: false,
+  created: createObjectDate(new Date()),
 }]);
 
 router.get('/tickets', ticket.getAll.bind(ticket));
