@@ -9,6 +9,9 @@
     "watch": "forever -W -c babel-node ./index.js",
     "lint": "eslint ./ticket --fix"
   },
+  "engines": {
+    "node": "11.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shustrila/AHJ.7.1.rest_api.git"
