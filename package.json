@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "babel-node index.js",
+    "start": "forever -c 'babel-node' ./index.js",
     "watch": "forever -W -c babel-node' ./index.js",
-    "lint": "eslint ./ticket --fix"
   },
   "engines": {
     "node": "11.x"
