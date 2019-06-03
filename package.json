@@ -4,8 +4,9 @@
   "description": "ahj.7.1.rest_api",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./index.js",
-    "watch": "forever --watch  --spinSleepTime --minUptime -c babel-node ./index.js",
+    "prestart": "npm install",
+    "start": "forever -c babel-node ./index.js",
+    "watch": "forever -W -c babel-node ./index.js",
     "lint": "eslint ./ticket --fix"
   },
   "repository": {
