@@ -56,7 +56,7 @@ class Ticket {
      */
 
   async create(ctx, next) {
-    const { name, description } = ctx.request.body;
+    const { name, description } = JSON.parse(ctx.request.body);
     const res = {};
     const data = {};
     let statusError = false;
@@ -79,6 +79,7 @@ class Ticket {
 
       res.satus = 200;
       res.message = 'create new post';
+      res.data = data;
     }
 
     ctx.response.body = res;
@@ -96,13 +97,14 @@ class Ticket {
 
   async update(ctx, next) {
     try {
-      const { id, name, description } = ctx.request.body;
+      const { id, name, description } = JSON.parse(ctx.request.body);
       const res = {};
 
       this._list = this._list.map((item) => {
         if (item.id === id) {
           item.name = name;
           item.description = description;
+          res.data = item;
         }
 
         return item;
@@ -112,10 +114,11 @@ class Ticket {
       res.message = `ticket id: ${id} update`;
 
       ctx.response.body = res;
-      await next();
     } catch (e) {
       throw new Error(e);
     }
+
+    await next();
   }
 
   /**
@@ -132,7 +135,10 @@ class Ticket {
     const res = {};
 
     this._list = this._list.map((item) => {
-      if (item.id === paramId) item.status = !item.status;
+      if (item.id === paramId) {
+        item.status = !item.status;
+        res.data = item.status;
+      }
 
       return item;
     });
@@ -140,7 +146,8 @@ class Ticket {
     res.status = 200;
     res.message = `ticket id: ${0} update`;
 
-    ctx.response.body = this._list;
+    ctx.response.body = res;
+
     await next();
   }
 
@@ -163,6 +170,7 @@ class Ticket {
     res.message = `ticket id: ${paramId} delete`;
 
     ctx.response.body = res;
+
     await next();
   }
 }
